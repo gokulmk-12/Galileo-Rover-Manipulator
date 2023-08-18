@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: arm_description
+    relative_path: urdf/galileo_arm.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/arm.srdf
+  CONFIG:
+    author_name: Gokul M K
+    author_email: ed21b026@smail.iitm.ac.in
+    generated_timestamp: 1692353329

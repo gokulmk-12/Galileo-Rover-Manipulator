@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="model" default="$(find arm_description)/urdf/arm.xacro"/>
+    <arg name="gui" default="true"/>
+    <arg name="rvizconfig" default="$(find arm_description)/launch/urdf.rviz"/>
+
+    <rosparam param="source_list" file="$(find arm_description)/launch/source_list.yaml" />
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
+    <param name="use_gui" value="$(arg gui)"/>
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <node name="rviz" pkg="rviz" args="-d $(arg rvizconfig)" type="rviz" required="true"/>
+    
+    
+    <node name="iksolver_node" pkg="ik_pkg" type="ik_solver.py" output="screen" /> <!--Calculates-joint-angles-->
+    <node name="joy_teleop_node" pkg="keyboard_joystick" type="teleop_node.py" output="screen" /> <!--provides-input-to-iksolver-->
+    <node name="ik_joy" pkg="keyboard_joystick" type="ik_joy.py" output="screen" /> <!--sends-joystick-values-to-joy_teleop-->
+</launch>
