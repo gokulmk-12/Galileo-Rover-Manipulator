@@ -1,6 +1,7 @@
 # galileo_arm
-This Repository contains the necessary files for Team Anveshak's Galileo Manipulator
+
 <img src="~/Anveshak/galileo_arm.png">
+![Alt text](~/Anveshak/galileo_arm.png)
 ## Getting Started
 
 #### Installation
