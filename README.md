@@ -1,7 +1,6 @@
 # galileo_arm
 
-<img src="~/Anveshak/galileo_arm.png">
-![Alt text](~/Anveshak/galileo_arm.png)
+
 ## Getting Started
 
 #### Installation
