@@ -1,6 +1,0 @@
-.vscode/
-.catkin_tools/
-
-.rosinstall
-.rosinstall.bak
-CMakeLists.txt
