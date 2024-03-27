@@ -6,16 +6,17 @@
 <!-- | The Manipulator is attached with a 2 finger gripper from Robotiq and has an Intel Realsense Depth Camera in Eye-in-hand Configuration  -->
 <!-- ======================================================================================================================================== -->
 
-<robot name="arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="galileo_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 <xacro:include filename="$(find arm_description)/urdf/materials.xacro" />
 <xacro:include filename="$(find arm_description)/urdf/arm.trans" />
 <xacro:include filename="$(find arm_description)/urdf/arm.gazebo" />
-<xacro:include filename="$(find robotiq_2f_85_gripper_visualization)/urdf/robotiq_arg2f_85_model.xacro"/>
+<!--xacro:include filename="$(find robotiq_2f_85_gripper_visualization)/urdf/robotiq_arg2f_85_model.xacro"/-->
 
 <!-- manipulator links -->
 
-<link name="world"></link>
+<!--link name="world"></link-->
+
 <link name="base_link">
    <inertial>
     <origin xyz="-0.002716977299773592 1.9808719046125134e-13 -0.002500000000000375" rpy="0 0 0"/>
@@ -125,17 +126,17 @@
 
 <!-- gripper -->
 
-<joint name="gripper_joint" type="fixed">
+<!--joint name="gripper_joint" type="fixed">
     <axis xyz="0 0 0" />
     <origin xyz="0 0 0" rpy="0 1.57 0"/>
     <parent link="tool_tip"/>
     <child link="robotiq_arg2f_base_link"/>
-</joint>
+</joint-->
 
 
 <!--intel realsense camera -->
 
-<joint name="intelrealsense" type="fixed">
+<!--joint name="intelrealsense" type="fixed">
     <axis xyz="0 0 0" />
     <origin xyz="-0.07 0.01 0.02" rpy="0 -1.046 0"/>
     <parent link="wrist_2_link"/>
@@ -178,58 +179,20 @@
     <child link="camera_depth_frame"/>
 </joint>
 
-<link name="camera_depth_frame"></link>
-
-<gazebo reference="camera_link">
-    <sensor type="depth" name="intelrealsense">
-      <visualize>false</visualize>
-      <updateRate>40</updateRate>
-      <camera>
-        <horizontal_fov>1.047</horizontal_fov>
-        <image>
-          <width>640</width>
-          <height>480</height>
-          <format>B8G8R8</format>
-        </image>
-        <clip>
-          <near>0.1</near>
-          <far>100</far>
-        </clip>
-      </camera>
-      <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
-  	<baseline>0.2</baseline>
-  	<alwaysOn>true</alwaysOn>
-  	<!-- Keep this zero, update_rate in the parent <sensor> tag will control the frame rate.-->
-  	<updateRate>20.0</updateRate>
-	<cameraName>camera_ir</cameraName>
-  	<imageTopicName>/camera/color/image_raw</imageTopicName>
-  	<cameraInfoTopicName>/camera/color/camera_info</cameraInfoTopicName>
-  	<depthImageTopicName>/camera/depth/image_raw</depthImageTopicName>
-  	<depthImageCameraInfoTopicName>/camera/depth/camera_info</depthImageCameraInfoTopicName>
-  	<pointCloudTopicName>/camera/depth/points</pointCloudTopicName>
-  	<frameName>camera_depth_frame</frameName>
-  	<pointCloudCutoff>0.05</pointCloudCutoff>
-  	<distortionK1>0</distortionK1>
-  	<distortionK2>0</distortionK2>
-  	<distortionK3>0</distortionK3>
-  	<distortionT1>0</distortionT1>
-  	<distortionT2>0</distortionT2>
-  	<CxPrime>0</CxPrime>
-  	<Cx>0</Cx>
-  	<Cy>0</Cy>
-  	<focalLength>0</focalLength>
-  	<hackBaseline>0</hackBaseline>
-      </plugin>
-    </sensor>
-    <static>true</static>
-</gazebo>
-
+<link name="camera_depth_frame"></link-->
 
 <!-- manipulator joints -->
 
-<joint name="world_joint" type="fixed">
+<!--joint name="world_joint" type="fixed">
    <parent link="world"/>
    <child link="base_link"/>
+</joint-->
+
+<joint name="shoulder_pan_joint" type="continuous">
+  <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="shoulder_link"/>
+  <axis xyz="-0.0 0.0 1.0"/>
 </joint>
 
 <joint name="shoulder_lift_joint" type="continuous">
@@ -254,14 +217,6 @@
   <child link="wrist_2_link"/>
   <axis xyz="-0.0 1.0 0.0"/>
   <limit upper="1.22173" lower="-1.22173" effort="100" velocity="100"/>
-</joint>
-
-<joint name="shoulder_pan_joint" type="continuous">
-  <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
-  <parent link="base_link"/>
-  <child link="shoulder_link"/>
-  <axis xyz="-0.0 0.0 1.0"/>
-  
 </joint>
 
 <joint name="ee_joint" type="continuous">
