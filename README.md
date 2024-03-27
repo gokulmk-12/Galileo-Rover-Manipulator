@@ -20,6 +20,7 @@ mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
 ```
 ` git clone https://github.com/gokulmk-12/galileo_arm.git `
+  git clone https://github.com/gokulmk-12/Galileo-Rover-Manipulator.git
 
 ```
 cd ~/catkin_ws
